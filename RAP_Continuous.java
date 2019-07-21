@@ -7,7 +7,7 @@
  ******************************************************************************/
 
 /******************************************************************************
-* This a class for simple resource allocation with separable convex quadratic objectives
+* This is a class for simple resource allocation with separable convex quadratic objectives
 *      
 * Method: solveRAP_Continous()
 *   

@@ -2,7 +2,7 @@
  *  Compilation:  javac -cp ./ TestSVM_Continuous2.java
  *  Execution:    java TestSVM_Continuous2
  *  
- *  A test class to evaluate the numerical performance of DCA, MDA when they are used as a subroutine in the projected gradient descent of COSVM
+ *  A test class to evaluate the numerical performance of DCA, MDA when they are used as a subroutine in the projected gradient descent of SOVREX
  *  @author Zeyang Wu @ University of Minnesota
  *
  ******************************************************************************/

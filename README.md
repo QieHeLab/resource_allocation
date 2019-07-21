@@ -29,9 +29,17 @@ Running the code
 
 Here are the short description on the files
 
+Prerequisites:
+Function.java : This is an abstract class for the function oracles
+
 
 1. Numerical experiment on DCA and Gurobi on DRAP-NC with linear and quadratic objectives
-	To be included
+	a. Main files:
+
+	RAP.java : This a class for discrete simple resource allocation (DRAP) with separable convex objectives. 
+	Hochbaum's algorithm (1994) is implemented to solve DRAP with general convex objectives. 
+	In addition, for linear objectives, a more efficient O(n) time algorithm is also implemented.
+
 
 2. Numerical experiment on DCA and MDA on DRAP-NC with three benchmark convex objectives function
 	To be included
@@ -47,11 +55,11 @@ Here are the short description on the files
 
 	TestSVM_Continuous2.java :  This is a test class to evaluate the numerical performance of DCA, MDA when they are used as a subroutine in the projected gradient descent of SOVREX.
 
-	RAP_Continuous.java : This a class for simple resource allocation with separable convex quadratic objectives. A bisection method is implemented to solve the RAP subproblems in the two algorithms to speed up the performance.
+	RAP_Continuous.java : This is a class for simple resource allocation with separable convex quadratic objectives. A bisection method is implemented to solve the RAP subproblems in the two algorithms to speed up the performance.
 
-	RAPnc_Continuous.java :  A class for resource allocation problem with lower and upper nested constraints (RAPNC). DCA and MDA for RAP-NC is implemented to solve an RAP-NC instance.
+	RAPNC_Continuous.java : This is class for resource allocation problem with lower and upper nested constraints (RAPNC). DCA and MDA for RAP-NC is implemented to solve an RAP-NC instance.
 
-	d. Files for reading and preprocessing the data:
+	b. Files for reading and preprocessing the data:
 	ReadFile.java
 	ReadFileLineByLineUsingScannerAbalone.java
 	ReadFileBank32nh.java
