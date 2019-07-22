@@ -58,15 +58,20 @@ Here are the short description on each file
 
 
 1. Numerical experiment on DCA and Gurobi on DRAP-NC with linear and quadratic objectives
+
+	In the first numerical experiment, we compare the performance of DCA and Gurobi on DRAP-NC instances with linear objectives. When the objectives are linear, the problems can be solved as linear programs due to the total unimodularity of the constraints.
+
 	a. Main files:
-		TestGurobiDCA_Lin.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi for DRAP-NC with linear objectives
-		TestGurobiDCA_Qua.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi for DRAP-NC with quadratic objectives
-		TestSparseGurobiDCA_Lin.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi for DRAP-NC with linear objectives under a sparse formulation. The running time of Gurobi is sped up by more than 30 times.
-		TestSparseGurobiDCA_Qua.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi for DRAP-NC with quadratic objectives under a sparse formulation. The running time of Gurobi is sped up by more than 30 times.
+		TestGurobiDCA_Lin.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi on DRAP-NC with linear objectives
+		TestGurobiDCA_Qua.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi on DRAP-NC with quadratic objectives
+		TestSparseGurobiDCA_Lin.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi on DRAP-NC with linear objectives under a sparse formulation. The running time of Gurobi is sped up by more than 30 times.
+		TestSparseGurobiDCA_Qua.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi on DRAP-NC with quadratic objectives under a sparse formulation. The running time of Gurobi is sped up by more than 30 times.
 
 
-2. Numerical experiment on DCA and MDA on DRAP-NC with three benchmark convex objectives function
-	To be included
+2. Numerical experiment on DCA and MDA on DRAP-NC with three benchmark convex objectives function 
+
+	a. Main file:
+		TestFlow1Con: This is a test class to evaluate the numerical performance of DCA and MDA on DRAP-NC with three benchmark objectives. You can test arbitrary convex objectives by changing the function oracles. 
 
 3. Numerical experiment on DCA and MDA on SOVREX 
 	Our last numerical experiment is on the Support Vector Ordinal Regression (SOVREX) model. In this algorithm, we apply DCA and MDA to solve RAP-NC (the continuous problem) subproblems in a projected gradient descent method for SOVREX. 
