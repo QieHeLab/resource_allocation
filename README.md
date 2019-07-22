@@ -27,19 +27,39 @@ There are three experiments:
 
 Running the code
 
-Here are the short description on the files
+Here are the short description on each file
 
-Prerequisites:
-Function.java : This is an abstract class for the function oracles
-
-
-1. Numerical experiment on DCA and Gurobi on DRAP-NC with linear and quadratic objectives
-	a. Main files:
-
+0. Main source files:
+	Function.java : This is an abstract class for the function oracles
+	
 	RAP.java : This a class for discrete simple resource allocation (DRAP) with separable convex objectives. 
 	Hochbaum's algorithm (1994) is implemented to solve DRAP with general convex objectives. 
 	In addition, for linear objectives, a more efficient O(n) time algorithm is also implemented.
+	
+	RAPNC.java : This is a class for RAPNC with separable convex objectives. It provides three methods to solve the problem (DCA, MDA, SFA).
+	
+	RAP_Continuous.java : This is a class for simple resource allocation with separable convex quadratic objectives. A bisection method is implemented to solve the RAP subproblems in the two algorithms to speed up the performance.
+	
+	RAPNC_Continuous.java : This is class for resource allocation problem with lower and upper nested constraints (RAPNC). DCA and MDA for RAP-NC is implemented to solve an RAP-NC instance.
 
+
+	Unit test files: 
+
+
+	ResultType files:
+		Discrete problem:
+			ResultTypeRAP.java : This is a class for storing the solution to an instance of DRAP
+			ResultTypeMDA.java : This is a class for storing the solution to the subproblems of DRAP-NC in the MDA method
+			ResultTypeRAPNC.java : This is a class for storing the solution to an instance of DRAP-NC
+
+		Continuous problem:
+			ResultTypeRAP_Continuous.java : This is a class for storing the solution to an instance of continuous RAP
+			ResultTypeMDA_Continuous.java : This is a class for storing the solution to the subproblems of RAP-NC in the MDA method
+			ResultTypeRAPNC_Continuous.java : This is a class for storing the solution to an instance of continuous RAP-NC
+
+
+1. Numerical experiment on DCA and Gurobi on DRAP-NC with linear and quadratic objectives
+	To be included
 
 2. Numerical experiment on DCA and MDA on DRAP-NC with three benchmark convex objectives function
 	To be included
@@ -55,10 +75,6 @@ Function.java : This is an abstract class for the function oracles
 
 	TestSVM_Continuous2.java :  This is a test class to evaluate the numerical performance of DCA, MDA when they are used as a subroutine in the projected gradient descent of SOVREX.
 
-	RAP_Continuous.java : This is a class for simple resource allocation with separable convex quadratic objectives. A bisection method is implemented to solve the RAP subproblems in the two algorithms to speed up the performance.
-
-	RAPNC_Continuous.java : This is class for resource allocation problem with lower and upper nested constraints (RAPNC). DCA and MDA for RAP-NC is implemented to solve an RAP-NC instance.
-
 	b. Files for reading and preprocessing the data:
 	ReadFile.java
 	ReadFileLineByLineUsingScannerAbalone.java
@@ -68,14 +84,9 @@ Function.java : This is an abstract class for the function oracles
 	ReadFileCensus.java 
 	ReadFileComputer.java 
 	ReadFileMachineCPU.java
-	ReadFilePyrimidines.java		
-		
-	c. ResultType files: 
-	ResultTypeRAP_Continuous.java : This is a class for storing the solution to an instance continuous RAP
-	ResultTypeMDA_Continuous.java : This is a class for storing the solution to the subproblems of RAP-NC in the MDA method
-	ResultTypeRAPNC_Continuous.java : This is a class for storing the solution to an instance continuous RAP-NC
+	ReadFilePyrimidines.java			
 
-	d. Data files:
+	c. Data files:
 	Data folder. The data sets are available at \url{https://www.dcc.fc.up.pt/~ltorgo/Regression/DataSets.html
 
 

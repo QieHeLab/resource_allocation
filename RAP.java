@@ -2,21 +2,24 @@
  *  Compilation:  javac RAP.java
  *  Execution:    java RAP
  *  
- *  A class for simple resource allocation problem(RAP) written by Zeyang Wu @ University of Minnesota
+ *	@author Zeyang Wu University of Minnesota
  *
- ******************************************************************************/
-
-/******************************************************************************
-* This is a class for discrete simple resource allocation (DRAP) with separable convex objectives. 
-*      
-* Method: solveRAP()
-*         greedyRAP(int, long[])
-* A scaling algorithm inspired by Hochbaum 2008 paper is implemented. The worse cases running time is 
-* O(nlognlonB) where n is the number of periods and B is total amount of demands.  
-* @author Zeyang Wu
+ * This is a class for discrete simple resource allocation (DRAP) with separable convex objectives. 
+ *      
+ * Method: solveRAP()
+ *         
+ * The scaling algorithm in Hochbaum 1994 paper is implemented. The worse cases running time is 
+ * O(nlognlonB) where n is the number of periods and B is total amount of demands.  
+ * subroutine: greedyRAP(int, long[])
+ *		  
+ * Method: solveRAPLinear()
+ * An O(n) time algorithm for DRAP with linear objective. The exact procedure is given by Hochbaum in 1995:
+ * 		About strongly polynomial time algorithms for quadratic optimization over sub-modular constraints.
+ * 
 */
 
 import java.util.*;
+
 public class RAP {
 	//list of function oracles: The user should write their own function classes which extends the abstract class Function .
 	List<Function> obj;
@@ -66,10 +69,6 @@ public class RAP {
 		while (s > 1) {
 			//greedy step with size s
 			greedyRAP(s, x, B);
-
-			/*Debug
-			System.out.println(s);
-			*/
 
 			//undo the last step of greedy(s)
 			for (int i = 0; i < dimension; i++) {
@@ -126,6 +125,7 @@ public class RAP {
      * @param x a initial vector can be 0 or any component-wise lower of the optimal solution  
      * @param B total amount of resource
      */
+
 	public ResultTypeRAP greedyRAP(long s, long[] x, long B) {
 		boolean[] removedIndex = new boolean[dimension];
 		long numOfRemovedIndex = 0;
