@@ -51,23 +51,25 @@ Here are the short description on each file
 			ResultTypeRAP.java : This is a class for storing the solution to an instance of DRAP
 			ResultTypeMDA.java : This is a class for storing the solution to the subproblems of DRAP-NC in the MDA method
 			ResultTypeRAPNC.java : This is a class for storing the solution to an instance of DRAP-NC
-
-		Continuous problem:
-			ResultTypeRAP_Continuous.java : This is a class for storing the solution to an instance of continuous RAP
+		Continuous problem: 
+			ResultTypeRAP_Continuous.java : This is a class for storing the solution to an instance of continuous RAP 
 			ResultTypeMDA_Continuous.java : This is a class for storing the solution to the subproblems of RAP-NC in the MDA method
 			ResultTypeRAPNC_Continuous.java : This is a class for storing the solution to an instance of continuous RAP-NC
 
 
 1. Numerical experiment on DCA and Gurobi on DRAP-NC with linear and quadratic objectives
-	To be included
+	a. Main files:
+		TestGurobiDCA_Lin.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi for DRAP-NC with linear objectives
+		TestGurobiDCA_Qua.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi for DRAP-NC with quadratic objectives
+		TestSparseGurobiDCA_Lin.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi for DRAP-NC with linear objectives under a sparse formulation. The running time of Gurobi is sped up by more than 30 times.
+		TestSparseGurobiDCA_Qua.java : This is a test class to evaluate the numerical performance of DCA, and Gurobi for DRAP-NC with quadratic objectives under a sparse formulation. The running time of Gurobi is sped up by more than 30 times.
+
 
 2. Numerical experiment on DCA and MDA on DRAP-NC with three benchmark convex objectives function
 	To be included
 
 3. Numerical experiment on DCA and MDA on SOVREX 
 	Our last numerical experiment is on the Support Vector Ordinal Regression (SOVREX) model. In this algorithm, we apply DCA and MDA to solve RAP-NC (the continuous problem) subproblems in a projected gradient descent method for SOVREX. 
-
-	
 
 	a. Main files:
 
