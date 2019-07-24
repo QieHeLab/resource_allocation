@@ -36,11 +36,11 @@ Here are the short description on each file
 
 1. Main source files:
 	* Algorithms: 
-	- Function.java : This is an abstract class for the function oracles	
-	- RAP.java : This a class for discrete simple resource allocation (DRAP) with separable convex objectives. Hochbaum's algorithm (1994) is implemented to solve DRAP with general convex objectives. In addition, for linear objectives, a more efficient O(n) time algorithm is also implemented.	
-	- RAPNC.java : This is a class for RAPNC with separable convex objectives. It provides three methods to solve the problem (DCA, MDA, SFA).	
-	- RAP_Continuous.java : This is a class for simple resource allocation with separable convex quadratic objectives. A bisection method is implemented to solve the RAP subproblems in the two algorithms to speed up the performance.	
-	- RAPNC_Continuous.java : This is class for resource allocation problem with lower and upper nested constraints (RAPNC). DCA and MDA for RAP-NC is implemented to solve an RAP-NC instance.
+		- Function.java : This is an abstract class for the function oracles	
+		- RAP.java : This a class for discrete simple resource allocation (DRAP) with separable convex objectives. Hochbaum's algorithm (1994) is implemented to solve DRAP with general convex objectives. In addition, for linear objectives, a more efficient O(n) time algorithm is also implemented.	
+		- RAPNC.java : This is a class for RAPNC with separable convex objectives. It provides three methods to solve the problem (DCA, MDA, SFA).	
+		- RAP_Continuous.java : This is a class for simple resource allocation with separable convex quadratic objectives. A bisection method is implemented to solve the RAP subproblems in the two algorithms to speed up the performance.	
+		- RAPNC_Continuous.java : This is class for resource allocation problem with lower and upper nested constraints (RAPNC). DCA and MDA for RAP-NC is implemented to solve an RAP-NC instance.
 
 	* Unit test files: 
 
