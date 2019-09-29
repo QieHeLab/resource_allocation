@@ -74,7 +74,7 @@ public class TestFlow1Con {
 	public static void main(String[] args) throws FileNotFoundException{
 		//Set output environment
 		long currentTime = System.currentTimeMillis();
-		PrintStream o = new PrintStream(new File("DCA----FlowS----MDA" + " Convex_LINEAR_SUB " + Long.toString(currentTime) + "_Vb_100" + ".txt"));
+		PrintStream o = new PrintStream(new File("DCA----FlowS----MDA----GreedyS" + " Convex_LINEAR_SUB " + Long.toString(currentTime) + "_Vb_100" + ".txt"));
 		//PrintStream o = new PrintStream(new File("DCA----FlowS----MDA" + " Con " + "TTTTTTESSSTTTTT100" + ".txt"));
 		System.setOut(o);
 
@@ -85,12 +85,12 @@ public class TestFlow1Con {
 		//testSize = new int[]{51200<<7, 51200<<8};
 		//testSize = new int[]{52100<<2, 51200<<3, 51200<<4,  51200<<5, 51200<<6, 51200<<7, 51200<<8};
 		//int x = 51200;
-		//testSize = new int[]{800, 1600, 3200};
+		//testSize = new int[]{5};
 		int rep = 10;
 		int varBound = 100;
 
 		System.out.println("Test: Variable bound " + varBound + ":General Convex Function");
-		System.out.println("Dimension 		DCA 	FlowS 	FlowSWOS 	MDA 	FastMDA 	number_subproblem_DCA  		number_subproblem_MDA");
+		System.out.println("Dimension 		DCA 	FlowS 	FlowSWOS 	MDA 	FastMDA 	number_subproblem_DCA  		number_subproblem_MDA		GreedyS");
 
 		for (int i = 0; i < testSize.length; i++) {
 			for (int j = 0; j < rep; j++) {
@@ -307,6 +307,26 @@ public class TestFlow1Con {
 		//number of subproblems
 		long number_subproblem_MDA = testFastMDA.number_subproblem;
 
+
+		/********************************************************************************
+        **
+        **FlowS: solve the problem with GreedyS and record the time
+        **
+        ********************************************************************************/
+      	//
+		
+		startTime = System.currentTimeMillis();
+		ResultTypeRAPNC resGreedyS = new ResultTypeRAPNC(true, null);
+		//for general convex objective functions
+		test = new RAPNC(obj, lbVar, ubVar, lbNested, ubNested);
+		resGreedyS.sol = test.createLotSizing().greedy_s_solve();
+		
+		//time 
+		endTime = System.currentTimeMillis();
+		//System.out.println(Arrays.toString(resFlow.sol));
+
+		long timeGreedyS = (endTime - startTime);
+
     	//System.out.println("MDA took " + mda + " milliseconds");
     	//System.out.println("Flow: " + Arrays.toString(resFlow.sol));
     	//System.out.println("Our:" + Arrays.toString(res.sol));
@@ -318,9 +338,13 @@ public class TestFlow1Con {
     	for (int i = 0; i < dimension; i++) {
     		sumDemandOur += res.sol[i];
     		sumDemandMda += resFlow.sol[i];    		
-			if (Math.abs(resFlow.sol[i] - res.sol[i]) >= 0.01 || Math.abs(resFlow.sol[i] - resMDA.aa[i]) >= 0.01 || Math.abs(resFlow.sol[i] - resFastMDA.aa[i]) >= 0.01 ) {
+			if (Math.abs(resFlow.sol[i] - res.sol[i]) >= 0.01 
+				|| Math.abs(resFlow.sol[i] - resMDA.aa[i]) >= 0.01 
+				|| Math.abs(resFlow.sol[i] - resFastMDA.aa[i]) >= 0.01 
+				|| Math.abs(resFlow.sol[i] - resGreedyS.sol[i]) >= 0.01
+			) {
 				System.out.println("No, the solution x[" + i + "] is different.");
-				System.out.println(resFlow.sol[i] + " " + res.sol[i] + " " + resMDA.aa[i] + " " + resFastMDA.aa[i]);
+				System.out.println(resFlow.sol[i] + " " + res.sol[i] + " " + resMDA.aa[i] + " " + resFastMDA.aa[i] + " " + resGreedyS.sol[i]);
 				System.out.println("Coefficient: " + obj.get(i).getValue(3) + obj.get(i).getValue(2));
 			}
 			//sumOur += obj.get(i).getValue(res.sol[i]);
@@ -336,6 +360,7 @@ public class TestFlow1Con {
 				+ String.format("%10s", ((double) timeFastMDA) / 1000) 
 				+ String.format("%20s", (number_subproblem_DCA)) 
 				+ String.format("%20s", (number_subproblem_MDA)) 
+				+ String.format("%10s", ((double) timeGreedyS) / 1000) 
 		);
     }
 }

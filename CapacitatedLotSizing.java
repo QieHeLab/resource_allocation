@@ -296,4 +296,134 @@ public class CapacitatedLotSizing {
 		
 		return prodFlow;
 	}
+
+
+	/**
+     * A greedy algorithm with step size s.
+     * The is a special implementation of Hochbaum's algorithm in her 1994 paper for DRAP with Network constraints
+     * <p>
+     *
+     * @param s  step size
+     * @param pardFlow a initial pseudo flow, can be 0 or any component-wise lower of the optimal solution  
+     */
+
+	public void greedy_s(long s, long[] prodFlow) {
+
+		//Make copies of the parameters 
+		double[] cost = new double[numPeriod];
+		long[] u0 = Arrays.copyOfRange(prodCap, 0, numPeriod);
+		long[] u = Arrays.copyOfRange(inventCap, 0, numPeriod - 1);
+		long[] de = Arrays.copyOfRange(demands, 0, numPeriod);
+		
+		//preprocess the prodFlow to update the capacities O(n)
+		long  sum = 0; 
+		long total_demand = 0;
+		for (int i = 0; i < numPeriod; i++) {
+			cost[i] = obj.get(i).getValue(prodFlow[i] + 1) - obj.get(i).getValue(prodFlow[i]);
+			u0[i] -= prodFlow[i];
+			if (sum + prodFlow[i] <= de[i]) {				
+				de[i] -= (prodFlow[i] + sum);
+				sum = 0;
+			} else {
+				sum += (prodFlow[i] - de[i]);
+				de[i] = 0;				
+			}
+
+			if (i < numPeriod - 1 && sum > 0) {
+				u[i] -= sum;
+			}
+			total_demand += de[i];
+		}
+		
+
+		//main iteration
+		//A forward tree store the cost of possible paths
+		TreeSet<DataType> forwardTree = new TreeSet<>(new DataTypeComparator());
+		List<DataType> hashCost = new ArrayList<>();
+
+		for (int i = 0; i < numPeriod; i++) {
+			hashCost.add(new DataType(i, cost[i]));
+			forwardTree.add(hashCost.get(i));
+		}
+
+		while (total_demand > 0) {
+			int minIndex = forwardTree.pollLast().id;
+
+			//check how much we could increase in that minIndex
+			long maxIncrease = de[numPeriod - 1];
+			for (int i = numPeriod - 2; i >= minIndex; i--) {
+				maxIncrease = Math.min(maxIncrease, u[i]);
+				maxIncrease += de[i];
+			}
+
+			maxIncrease = Math.min(maxIncrease, u0[minIndex]);
+
+			if (maxIncrease >= s) {
+				maxIncrease = s;
+			} 
+
+			
+			if (maxIncrease >= 1) {	
+				//update the prodFlow
+				prodFlow[minIndex] += maxIncrease;
+				total_demand -= maxIncrease;
+				u0[minIndex] -= maxIncrease;
+
+				//update the cost if it is feasible
+				hashCost.get(minIndex).value = obj.get(minIndex).getValue(prodFlow[minIndex] + 1) - obj.get(minIndex).getValue(prodFlow[minIndex]);			
+				forwardTree.add(hashCost.get(minIndex));
+
+				//update the capacities
+				long temp_sum = maxIncrease;
+				for (int i = minIndex; i < numPeriod; i++) {
+					if (de[i] > maxIncrease) {
+						de[i] -= maxIncrease;
+						break;
+					} else {
+						maxIncrease -= de[i];
+						de[i] = 0;
+						if (i < numPeriod - 1) {
+							u[i] -= maxIncrease;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public long[] greedy_s_solve() {
+		long[] prodFlow = new long[numPeriod];
+
+		//ssp(1, prodFlow);
+		
+		long B = 0;
+		for (int i = 0; i < numPeriod; i++) {
+			B += demands[i];
+		}
+		
+		long s = (long) Math.ceil(((double) B) / numPeriod / 2);
+		while (s > 1) {
+			//greedy step with size s
+			greedy_s(s, prodFlow);			
+			
+			
+ 			//System.out.println("Sum of flows: " + java.util.stream.LongStream.of(prodFlow).sum());
+			//undo the last step of greedy(s)
+			for (int i = 0; i < numPeriod; i++) {
+				//avoid infeasibility				
+				prodFlow[i] = Math.max(prodFlow[i] - s, 0);
+			}
+            //System.out.println("Pseudo flow after adjustment with step size " + s + ": " + Arrays.toString(prodFlow));
+
+			if (s % 2 == 0) {
+				s = s / 2;
+			} else {
+				s = s / 2 + 1;
+			}
+		}
+		
+		greedy_s(1, prodFlow);
+		
+		return prodFlow;
+	}
 }
